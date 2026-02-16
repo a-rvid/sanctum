@@ -1,0 +1,15 @@
+services:
+  sanctum:
+    image: sanctum
+    devices:
+      - /dev/net/tun:/dev/net/tun
+      - /dev/net/tap:/dev/net/tap
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    privileged: true
+    network_mode: host
+    # Mount hymn
+    volumes:
+     - /path/to/hymn:/etc/hymn:ro
+     - /path/to/reliquary:/root/.config/reliquary/
