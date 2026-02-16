@@ -1,17 +1,7 @@
 name: Build and Push Docker Image
 
 on:
-  workflow_dispatch:
-    inputs:
-      platform:
-        description: "Platforms to publish to"
-        default: 'linux/amd64,linux/arm64'
-        required: true
-        type: choice
-        options:
-          - linux/amd64
-          - linux/arm64
-          - linux/amd64,linux/arm64
+  push:
 
 permissions:
   packages: write
@@ -41,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          platforms: ${{ inputs.platform }}
+          platforms: linux/amd64,linux/arm64
           tags: |
             ghcr.io/${{ github.repository }}:latest
           cache-from: type=gha

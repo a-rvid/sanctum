@@ -11,5 +11,5 @@ services:
     network_mode: host
     # Mount hymn
     volumes:
-     - /path/to/hymn:/etc/hymn:ro
+     - /path/to/hymn:/etc/hymn
      - /path/to/reliquary:/root/.config/reliquary/
