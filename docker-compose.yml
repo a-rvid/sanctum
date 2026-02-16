@@ -3,11 +3,9 @@ services:
     image: ghcr.io/a-rvid/sanctum:latest
     devices:
       - /dev/net/tun:/dev/net/tun
-      - /dev/net/tap:/dev/net/tap
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
-    privileged: true
     network_mode: host
     # Mount hymn
     volumes:
