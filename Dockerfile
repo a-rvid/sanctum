@@ -11,4 +11,4 @@ COPY --from=build /usr/local/bin/ /usr/local/bin
 RUN apk add --no-cache doas libsodium doas-sudo-shim
 RUN adduser -D sanctum
 
-CMD ["hymn", "up"]
+CMD ["ash", "-c", "syslogd & hymn up && tail -f /var/log/messages"]
