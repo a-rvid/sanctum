@@ -1,6 +1,6 @@
 services:
   sanctum:
-    image: sanctum
+    image: ghcr.io/a-rvid/sanctum:latest
     devices:
       - /dev/net/tun:/dev/net/tun
       - /dev/net/tap:/dev/net/tap
