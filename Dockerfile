@@ -8,7 +8,9 @@ RUN make install
 
 FROM alpine:latest
 COPY --from=build /usr/local/bin/ /usr/local/bin
-RUN apk add --no-cache doas libsodium doas-sudo-shim
+RUN apk add --no-cache doas libsodium doas-sudo-shim tini
 RUN adduser -D sanctum
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 
-CMD ["ash", "-c", "syslogd & hymn up && tail -f /var/log/messages"]
+ENTRYPOINT ["tini", "--"]
+CMD ["/docker-entrypoint.sh"]
