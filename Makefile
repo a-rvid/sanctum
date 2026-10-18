@@ -165,6 +165,19 @@ $(OBJDIR)/%.o: %.c
 	@mkdir -p $(shell dirname $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+build: all build-tar build-deb
+
+build-tar: all 
+	rm -rf $(OBJDIR)/tar-root
+	mkdir -p $(OBJDIR)/tar-root
+	PREFIX=/usr DESTDIR=$(CURDIR)/$(OBJDIR)/tar-root $(MAKE) install
+	tar -C $(OBJDIR)/tar-root -czf sanctum.tar.gz .
+
+build-deb: all
+	rm -rf share/debian/etc share/debian/share share/debian/usr
+	PREFIX=/usr DESTDIR=$(CURDIR)/share/debian $(MAKE) install
+	dpkg-deb --root-owner-group --build share/debian sanctum-x86_64.deb
+
 clean:
 	rm -f $(VERSION)
 	$(MAKE) -C nyfe clean
@@ -173,5 +186,14 @@ clean:
 	$(MAKE) tools-clean-vicar
 	$(MAKE) tools-clean-ambry
 	rm -rf $(OBJDIR) $(BIN)
+	$(MAKE) clean-tar
+	$(MAKE) clean-deb
 
-.PHONY: all clean force
+clean-tar:
+	rm -rf sanctum.tar.gz $(OBJDIR)/tar-root
+
+clean-deb:
+	rm -rf share/debian/etc share/debian/share share/debian/usr
+	rm -f sanctum-x86_64.deb
+
+.PHONY: all clean force build build-tar build-deb clean-deb

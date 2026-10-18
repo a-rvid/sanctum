@@ -1,0 +1,11 @@
+Package: sanctum
+Version: 1.1.2
+Architecture: amd64
+Maintainer: Joris Vink <joris@sanctorum.se>
+Depends: libsodium23
+Section: net
+Priority: extra
+Homepage: https://sanctorum.se/
+Description: Sanctum is a small, reviewable, capable, pq-secure and fully privilege seperated VPN daemon.
+
+
